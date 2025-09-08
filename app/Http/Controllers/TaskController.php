@@ -13,4 +13,28 @@ class TaskController extends Controller
         $tasks = Task::all();
         return Inertia::render('Home', compact('tasks'));
     }
+
+    public function create(){
+
+        return Inertia::render('Create');
+    }
+
+    public function store(Request $request){
+        
+        $request->validate([
+            'name' => ['required', 'string'],
+            'state' => ['required', 'boolean']
+        ]);
+
+        $task = new Task();
+        $task->name = $request->name;
+        $task->state = $request->state;
+        $task->save();
+        return redirect('/');
+    }
+    public function destroy($id){
+
+        Task::findOrFail($id)->delete();
+        return;
+    }
 }
