@@ -41,10 +41,9 @@ export default function Home({ tasks }) {
     };
 
     return (
-        <div>
-            <h1>Liste des tâches</h1>
+        <div className="div_glo outfit">
             <button
-                className="text-red-500 hover:text-red-700 text-xl font-bold ml-2 transition-colors cursor-pointer"
+                className="btn_delete"
                 onClick={() => clearCompletedTasks()}
             >
                 Supprimer toutes les tâches completées
@@ -63,13 +62,17 @@ export default function Home({ tasks }) {
                     //         Supprimer
                     //     </button>
                     // </li>
-                    <li key={task.id}>
-                        {task.name} - 
-                        <button onClick={() => toggleTaskState(task)}>
-                            {task.state ? 'Terminé' : 'En cours'}
+                    <li key={task.id}
+                    className={task.state ? 'toggle completed' : 'toggle progress'}
+                    >
+                        <div className="div_list">
+                            {task.name}
+                        </div>
+                        <button className={task.state ? 'toggle complet' : 'toggle incomplet'} onClick={() => toggleTaskState(task)}>                        
+                                {task.state ? 'Terminé' : 'En cours'}
                         </button>
                         
-                        <button onClick={() => deleteTask(task)}>
+                        <button className="btn_delete" onClick={() => deleteTask(task)}>
                             Supprimer
                         </button>
                     </li>
