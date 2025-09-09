@@ -4,7 +4,7 @@ import React from "react"
 export default function Create() {
     const { data, setData, post, processing, errors } = useForm({
         name: "",
-        state: false, // Default unfinished
+        state: false,
     });
 
     function submit(e) {
