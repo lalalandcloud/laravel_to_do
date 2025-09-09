@@ -48,6 +48,13 @@ export default function Home({ tasks }) {
                 Supprimer toutes les tâches completées
             </button>            
             
+            <a
+                href="/create"
+                className="btn_add"
+            >
+                Ajouter une tâche
+            </a>            
+            
             <ul>
                 {currentTasks.map(task => (
                     <li key={task.id}
