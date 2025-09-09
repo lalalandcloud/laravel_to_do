@@ -2,42 +2,41 @@ import { router, useForm } from "@inertiajs/react";
 import React, { useState } from "react";
 
 
+
 export default function Home({ tasks }) {
+    const [currentPage, setCurrentPage] = useState(1);
+    const tasksPerPage = 6;
+    
+    // Calculer les tâches à afficher
+    const indexOfLastTask = currentPage * tasksPerPage;
+    const indexOfFirstTask = indexOfLastTask - tasksPerPage;
+    const currentTasks = tasks.slice(indexOfFirstTask, indexOfLastTask);
+    
+    // Calculer le nombre total de pages
+    const totalPages = Math.ceil(tasks.length / tasksPerPage);
 
-    const { delete: destroy } = useForm();
-    const [processingId, setProcessingId] = useState(null);
-
-    const deleteTask = (task) => {
-        router.post(
-            `/tasks/${task.id}` ,
-            {
-                _method: "DELETE"
-            },
-            {
-                preserveScroll: true
-            }
-        );
-    };
     const clearCompletedTasks = () => {
-        router.post(
-            `/tasks/clear`, 
-            {
-                _method: "DELETE"
-            },
-            {
+        router.post(`/tasks/clear`, {
+            _method: "DELETE"
+        }, {
             preserveScroll: true
         });
     };
+
+    const deleteTask = (task) => {
+        router.post(`/tasks/${task.id}`, {
+            _method: "DELETE"
+        }, {
+            preserveScroll: true
+        });
+    };
+
     const toggleTaskState = (task) => {
-        router.post(
-            `/tasks/${task.id}/toggle`,
-            {
-                _method: "PATCH"
-            },
-            {
-                preserveScroll: true
-            }
-        );
+        router.post(`/tasks/${task.id}/toggle`, {
+            _method: "PATCH"
+        }, {
+            preserveScroll: true
+        });
     };
 
     return (
@@ -48,20 +47,9 @@ export default function Home({ tasks }) {
             >
                 Supprimer toutes les tâches completées
             </button>            
+            
             <ul>
-                {tasks.map(task => (
-                    // <li key={task.id}>
-                    //     <input
-                    //         type="checkbox"
-                    //         checked={task.state}
-                    //         onChange={() => toggleTaskState(task)}
-                    //     />
-                    //     {task.name} - {task.state ? 'Terminé' : 'En cours'}
-                        
-                    //     <button onClick={() => deleteTask(task)}>
-                    //         Supprimer
-                    //     </button>
-                    // </li>
+                {currentTasks.map(task => (
                     <li key={task.id}
                     className={task.state ? 'toggle completed' : 'toggle progress'}
                     >
@@ -78,6 +66,28 @@ export default function Home({ tasks }) {
                     </li>
                 ))}
             </ul>
+
+            {totalPages > 1 && (
+                <div className="next">
+                    <button
+                        className="completed complet" 
+                        onClick={() => setCurrentPage(currentPage - 1)}
+                        disabled={currentPage === 1}
+                    >
+                        Précédent
+                    </button>
+                    
+                    <span> Page {currentPage} sur {totalPages} </span>
+                    
+                    <button 
+                        className="completed complet"
+                        onClick={() => setCurrentPage(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                    >
+                        Suivant
+                    </button>
+                </div>
+            )}
         </div>
     );
 }

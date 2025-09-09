@@ -22,6 +22,8 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 100vh;
+    justify-content: center;
 }
 
 main{
@@ -33,7 +35,6 @@ main{
 }
 
 .toggle{
-    border: none;
     border-radius: 5px;   
     margin: 10px;
     color: inherit;
@@ -61,10 +62,12 @@ button{
     cursor: pointer;
     font-family: 'Outfit';
     font-size: 12pt;
+    border: none;
+    border-radius: 5px;
 }
 
 ul{
-    width: 50vw;
+    padding: 0;
 }
 li{
     display: flex;
@@ -82,9 +85,22 @@ li>button{
     background-color: white;
     color:  rgb(66, 127, 153);
     border-radius: 5px;
-    border: none;
+    border: rgba(165, 42, 42, 0) 2px solid;
+    margin: 10px;
 }
 .btn_delete:hover{
     color: brown;
+    border: brown 2px solid;
+    
 }
-
+span{
+    color:  rgb(66, 127, 153);
+}
+.next{
+    margin: 10px;
+    margin-block: 3rem;
+    width: 30%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
