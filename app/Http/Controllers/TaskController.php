@@ -41,5 +41,13 @@ class TaskController extends Controller
    public function clear(){
         Task::where('state', true)->delete();
         return redirect()->back()->with('success', 'Tâches terminées supprimées');
-}
+    }
+
+    public function toggle($id){
+        $task = Task::findOrFail($id);
+        $task->state = !$task->state;
+        $task->save();
+        
+        return redirect()->back()->with('success', 'État de la tâche mis à jour');
+    }
 }

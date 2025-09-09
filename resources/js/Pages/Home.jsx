@@ -28,11 +28,17 @@ export default function Home({ tasks }) {
             preserveScroll: true
         });
     };
-    // const clearCompletedTasks = () => {
-    //     router.delete(route('tasks.clear'), {
-    //         preserveScroll: true
-    //     });
-    // };
+    const toggleTaskState = (task) => {
+        router.post(
+            `/tasks/${task.id}/toggle`,
+            {
+                _method: "PATCH"
+            },
+            {
+                preserveScroll: true
+            }
+        );
+    };
 
     return (
         <div>
@@ -45,19 +51,25 @@ export default function Home({ tasks }) {
             </button>            
             <ul>
                 {tasks.map(task => (
+                    // <li key={task.id}>
+                    //     <input
+                    //         type="checkbox"
+                    //         checked={task.state}
+                    //         onChange={() => toggleTaskState(task)}
+                    //     />
+                    //     {task.name} - {task.state ? 'Terminé' : 'En cours'}
+                        
+                    //     <button onClick={() => deleteTask(task)}>
+                    //         Supprimer
+                    //     </button>
+                    // </li>
                     <li key={task.id}>
-                        {task.name} - {task.state ? 'Terminé' : 'En cours'} ||
-                         
-                        {/* <button
-                            onClick={(e) => handleClick(e, task.id)}
-                            className="cursor-pointer"
-                        >
-                            Supprimer
-                        </button> */}
-                        <button
-                            className="text-red-500 hover:text-red-700 text-xl font-bold ml-2 transition-colors cursor-pointer"
-                            onClick={() => deleteTask(task)}
-                        >
+                        {task.name} - 
+                        <button onClick={() => toggleTaskState(task)}>
+                            {task.state ? 'Terminé' : 'En cours'}
+                        </button>
+                        
+                        <button onClick={() => deleteTask(task)}>
                             Supprimer
                         </button>
                     </li>
