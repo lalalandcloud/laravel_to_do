@@ -7,14 +7,6 @@ export default function Home({ tasks }) {
     const { delete: destroy } = useForm();
     const [processingId, setProcessingId] = useState(null);
 
-    // function handleClick(e, id) {
-        
-    //     destroy(`/${id}/destroy`, {
-    //         preserveScroll: true,
-    //         preserveState: true,
-    //         onFinish: () => setProcessingId(null),
-    //     });
-    // }
     const deleteTask = (task) => {
         router.post(
             `/tasks/${task.id}` ,
@@ -26,10 +18,31 @@ export default function Home({ tasks }) {
             }
         );
     };
+    const clearCompletedTasks = () => {
+        router.post(
+            `/tasks/clear`, 
+            {
+                _method: "DELETE"
+            },
+            {
+            preserveScroll: true
+        });
+    };
+    // const clearCompletedTasks = () => {
+    //     router.delete(route('tasks.clear'), {
+    //         preserveScroll: true
+    //     });
+    // };
 
     return (
         <div>
             <h1>Liste des tâches</h1>
+            <button
+                className="text-red-500 hover:text-red-700 text-xl font-bold ml-2 transition-colors cursor-pointer"
+                onClick={() => clearCompletedTasks()}
+            >
+                Supprimer toutes les tâches completées
+            </button>            
             <ul>
                 {tasks.map(task => (
                     <li key={task.id}>

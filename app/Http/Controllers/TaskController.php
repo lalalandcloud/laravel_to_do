@@ -33,7 +33,13 @@ class TaskController extends Controller
         return redirect('/');
     }
     public function destroy($id){
-    Task::findOrFail($id)->delete();
-    return redirect()->back();
+        Task::findOrFail($id)->delete();
+        return redirect()->back()->with('success', 'Tâche supprimée');
+        
+    }
+
+   public function clear(){
+        Task::where('state', true)->delete();
+        return redirect()->back()->with('success', 'Tâches terminées supprimées');
 }
 }
