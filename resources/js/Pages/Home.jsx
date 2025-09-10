@@ -1,18 +1,14 @@
-import { router, useForm } from "@inertiajs/react";
+import { router, useForm, Link } from "@inertiajs/react";
 import React, { useState } from "react";
 
-
-
-export default function Home({ tasks }) {
+export default function Home({ tasks, filter = 'all' }) {
     const [currentPage, setCurrentPage] = useState(1);
     const tasksPerPage = 6;
     
-    // Calculer les tâches à afficher
     const indexOfLastTask = currentPage * tasksPerPage;
     const indexOfFirstTask = indexOfLastTask - tasksPerPage;
     const currentTasks = tasks.slice(indexOfFirstTask, indexOfLastTask);
     
-    // Calculer le nombre total de pages
     const totalPages = Math.ceil(tasks.length / tasksPerPage);
 
     const clearCompletedTasks = () => {
@@ -41,6 +37,7 @@ export default function Home({ tasks }) {
 
     return (
         <div className="div_glo outfit">
+            
             <button
                 className="btn_delete"
                 onClick={() => clearCompletedTasks()}
@@ -54,7 +51,19 @@ export default function Home({ tasks }) {
             >
                 Ajouter une tâche
             </a>            
-            
+            <div className="div_tri">
+                <div>
+                    <Link href="/?filter=all" className={`btn btn-sm ${filter==='all' ? 'btn-primary' : 'btn-outline-primary'} me-1`}>
+                        Toutes
+                    </Link>
+                    <Link href="/?filter=active" className={`btn btn-sm ${filter==='active' ? 'btn-primary' : 'btn-outline-primary'} me-1`}>
+                        Actives
+                    </Link>
+                    <Link href="/?filter=completed" className={`btn btn-sm ${filter==='completed' ? 'btn-primary' : 'btn-outline-primary'}`}>
+                        Terminées
+                    </Link>
+                </div>
+            </div>
             <ul>
                 {currentTasks.map(task => (
                     <li key={task.id}

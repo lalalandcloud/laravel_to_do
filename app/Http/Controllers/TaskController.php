@@ -8,14 +8,33 @@ use Inertia\Inertia;
 
 class TaskController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         
-        $tasks = Task::all();
-        return Inertia::render('Home', compact('tasks'));
+        $filter = $request->get('filter', 'all');
+        
+        $query = Task::query();
+        
+        switch ($filter) {
+            case 'active':
+                $query->where('state', false);
+                break;
+            case 'completed':
+                $query->where('state', true);
+                break;
+            case 'all':
+            default:
+                break;
+        }
+        
+        $tasks = $query->get();
+        
+        return Inertia::render('Home', [
+            'tasks' => $tasks,
+            'filter' => $filter
+        ]);
     }
 
     public function create(){
-
         return Inertia::render('Create');
     }
 
@@ -30,15 +49,16 @@ class TaskController extends Controller
         $task->name = $request->name;
         $task->state = $request->state;
         $task->save();
+        
         return redirect('/');
     }
+    
     public function destroy($id){
         Task::findOrFail($id)->delete();
         return redirect()->back()->with('success', 'Tâche supprimée');
-        
     }
 
-   public function clear(){
+    public function clear(){
         Task::where('state', true)->delete();
         return redirect()->back()->with('success', 'Tâches terminées supprimées');
     }

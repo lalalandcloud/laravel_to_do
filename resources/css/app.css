@@ -104,3 +104,75 @@ span{
     justify-content: space-between;
     align-items: center;
 }
+a, .btn_add{
+    width: 19%;
+    padding: 5px;
+    cursor: pointer;
+    font-family: 'Outfit';
+    font-size: 12pt;
+    border: none;
+    border-radius: 5px;   
+    margin: 10px;
+    color: inherit;
+    background-color: rgba(81, 145, 172, 0.73);
+    color: white;
+    text-decoration: none;
+}
+a{
+    width: 30%;
+}
+a:hover, .btn_add:hover{
+    background-color: white;
+    color:  rgb(66, 127, 153);
+}
+.btn_add_a{
+    border: solid, rgba(100, 148, 237, 0);
+    width: 19%;
+    padding: 5px;
+    cursor: pointer;
+    font-family: 'Outfit';
+    font-size: 12pt;
+    border: none;
+    border-radius: 5px;   
+    margin: 10px;
+    color: inherit;
+    background-color: rgba(81, 145, 172, 0.73);
+    color: white;
+    text-decoration: none;
+}
+.btn_add_a:hover{
+    border: solid, rgb(66, 127, 153);
+    background-color: white;
+    color:  rgb(66, 127, 153);
+}
+
+
+.new_task{
+    border: none;
+    background-color: white;
+    color:  rgb(66, 127, 153);
+    width: 19%;
+    padding: 5px;
+    font-family: 'Outfit';
+    font-size: 12pt;
+    border: none;
+    border-radius: 5px;   
+    margin: 10px;
+}
+.new_task:focus-visible{
+    border: rgb(66, 127, 153);
+}
+.new_task::placeholder{
+    color: rgb(66, 127, 153);
+}
+
+form{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.div_tri{
+    display: flex;
+    justify-content: space-around;
+    width: 35%;
+}

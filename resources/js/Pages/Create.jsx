@@ -14,7 +14,8 @@ export default function Create() {
 
     return (
         <form onSubmit={submit}>
-            <input
+            <input 
+                className="new_task"
                 type="text"
                 value={data.name}
                 placeholder="Name"
@@ -22,16 +23,7 @@ export default function Create() {
             />
             {errors.name && <div>{errors.name}</div>}
 
-            <label>
-                <input
-                    type="checkbox"
-                    checked={data.state}
-                    onChange={(e) => setData("state", e.target.checked)}
-                />
-                Terminé
-            </label>
-
-            <button type="submit" disabled={processing}>
+            <button className="btn_add_a" type="submit" disabled={processing}>
                 Créer
             </button>
         </form>
